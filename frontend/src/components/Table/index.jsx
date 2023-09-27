@@ -32,8 +32,10 @@ export default function Table(props) {
                     <tr key={index}>
                       <th scope="row">{user.id}</th>
                       <th>{user.name}</th>
-                      <th>{user.email}</th>
+                      <th>{user.username}</th>
+                      <th>{user.phone}</th>
                       <th>{user.website}</th>
+                      <th>{user.email}</th>
                     </tr>
                   );
                 })}
