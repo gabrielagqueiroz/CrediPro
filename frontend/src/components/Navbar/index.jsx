@@ -17,7 +17,7 @@ export default function Navbar() {
       <nav className="red darken-4">
         <div className="nav-wrapper">
           <a href="#" className="brand-logo">
-            CrediConta
+            CrediPro
           </a>
           <ul id="nav-mobile-desktop" className="right hide-on-med-and-down">
             <li>

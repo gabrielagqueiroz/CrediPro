@@ -14,11 +14,8 @@ export default function Cadastro() {
             <input id="tel" type="tel" className="validate" />
             <label htmlFor="tel">Telefone</label>
           </div>
-          <div class="input-field col s6">
+          <div className="input-field col s6">
             <select>
-              <option value="" disabled selected>
-                Selecione
-              </option>
               <option value="1">São Carlos</option>
               <option value="2">cliente</option>
               <option value="3">Outro</option>
@@ -27,7 +24,7 @@ export default function Cadastro() {
           </div>
         </div>
         <div className="row">
-          <div class="input-field col s4">
+          <div className="input-field col s4">
             <select multiple>
               <optgroup label="Pratinho">
                 <option value="1">Pratinho 10</option>
@@ -45,7 +42,7 @@ export default function Cadastro() {
             </select>
             <label>Comidas</label>
           </div>
-          <div class="input-field col s4">
+          <div className="input-field col s4">
             <select multiple>
               <optgroup label="Garrafinha">
                 <option value="1">Coquinha</option>
@@ -77,7 +74,7 @@ export default function Cadastro() {
             </select>
             <label>Bebidas</label>
           </div>
-          <div class="input-field col s4">
+          <div className="input-field col s4">
             <select multiple>
               <optgroup label="Chocolates">
                 <option value="1">Barra</option>
