@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   useEffect(() => {
@@ -8,9 +9,7 @@ export default function Navbar() {
     });
 
     M.AutoInit();
-
   }, []);
-
 
   return (
     <div>
@@ -21,31 +20,31 @@ export default function Navbar() {
           </a>
           <ul id="nav-mobile-desktop" className="right hide-on-med-and-down">
             <li>
-              <a href="/dashboard">Dashboard</a>
+              <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
-              <a href="/cadastro">Cadastrar</a>
+              <Link to="/cadastro">Cadastrar</Link>
             </li>
             <li>
-              <a href="/vendas">Vendas</a>
+              <Link to="/vendas">Vendas</Link>
             </li>
             <li>
-              <a href="/produtos">Produtos</a>
+              <Link to="/produtos">Produtos</Link>
             </li>
           </ul>
 
           <ul id="slide-out" className="sidenav">
             <li>
-              <a href="/dashboard">Dashboard</a>
+              <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
-              <a href="/cadastro">Cadastrar</a>
+              <Link to="/cadastro">Cadastrar</Link>
             </li>
             <li>
-              <a href="/vendas">Vendas</a>
+              <Link to="/vendas">Vendas</Link>
             </li>
             <li>
-              <a href="/produtos">Produtos</a>
+              <Link to="/produtos">Produtos</Link>
             </li>
           </ul>
           <a href="#" data-target="slide-out" className="sidenav-trigger">
