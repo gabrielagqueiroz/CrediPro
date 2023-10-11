@@ -1,36 +1,42 @@
 import React from "react";
 
 export default function Form() {
-  const [data, setData] = React.useState('');
+  const [data, setData] = React.useState({});
 
   const fields = (e) => {
-    setData(e.target.value);
+    const {name, value} = e.target;
 
-    console.log(data);
+    setData({...data, [name]: value});
+    
   };
 
 
-/*   async const cadastrar = () => {
-    await fetch('http://localhost:8000/cadastro' {
-      method: 'POST',
+  const cadastrar = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch('http://localhost:8000/cadastro', {
+      method: "POST",
       headers: {
-        "Content-type": "application-json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name
-      })
+      body: JSON.stringify(data),
     })
-  } */
+
+    console.log(data)
+
+  }
+
+  
 
   return (
     <div className="container">
-      <form>
+      <form onSubmit={cadastrar}>
         <div className="row">
           <div className="input-field col s12">
             <input
-              value={data}
+              value={data.nome}
               onChange={fields}
-              id="name"
+              id="nome"
               type="text"
               className="validate"
             />
@@ -39,7 +45,7 @@ export default function Form() {
 
           <div className="input-field col s6">
             <input
-              value={data}
+              value={data.tel}
               onChange={fields}
               id="tel"
               type="tel"
@@ -48,7 +54,41 @@ export default function Form() {
             <label htmlFor="tel">Telefone</label>
           </div>
           <div className="input-field col s6">
-            <select multiple>
+            <input
+              value={data.category}
+              onChange={fields}
+              id="category"
+              type="text"
+              className="validate"
+            />
+            <label htmlFor="category">Categoria</label>
+          </div>  
+        </div> 
+        <div className="row">
+          <div className="input-field col s7">
+            <input
+              value={data.obs}
+              onChange={fields}
+              id="obs"
+              type="text"
+              className="validate"
+            />
+            <label htmlFor="obs">Observações:</label>
+          </div>
+          <div className="input-field col s5">
+            <button className="btn waves-effect waves-light" type="submit">
+              Finalizar
+              <i className="material-icons right">done</i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+
+{/* <select multiple>
               <option value="São Carlos">São Carlos</option>
               <option value="Cliente">Cliente</option>
               <option value="Outro">Outro</option>
@@ -123,26 +163,4 @@ export default function Form() {
             </select>
             <label>Doces</label>
           </div>
-        </div>
-        <div className="row">
-          <div className="input-field col s7">
-            <input
-              value={data}
-              onChange={fields}
-              id="obs"
-              type="text"
-              className="validate"
-            />
-            <label htmlFor="obs">Observações:</label>
-          </div>
-          <div className="input-field col s5">
-            <button className="btn waves-effect waves-light" type="submit">
-              Finalizar
-              <i className="material-icons right">done</i>
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  );
-}
+        </div> */}

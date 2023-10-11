@@ -1,35 +1,31 @@
-import {db} from '../db.js';
+import { db } from "../db.js";
 
 export const getUsers = (_, res) => {
-    const q = "SELECT * FROM tb_user";
+  const q = "SELECT * FROM tb_user";
 
-    db.query(q, (err, data) => {
-        if(err) return res.json(err);
+  db.query(q, (err, data) => {
+    if (err) return res.json(err);
 
-        return res.status(200).json(data);
-    });
+    return res.status(200).json(data);
+  });
 };
 
-
 export const postUsers = (req, res) => {
-    const q = "INSERT INT tb_user('nome', 'telefone', 'obs' ) VALUES(?)";
 
-    const values = [
-        req.body.name,
-        req.body.tel,
-        req.body.obs,
-    ];
+    const body = req.body
 
-    db.query(q, [values], (err) => {
-        if(err) return res.json(err);
+    console.log(body)
 
-        return res.status(200).json("Usuário cadastrado com sucesso")
-    })
-}
+  const q = "INSERT INTO tb_user(nome, category, telefone, obs ) VALUES(?)";
 
+  const values = [req.body.name, req.body.category, req.body.tel, req.body.obs];
 
-
-
-
-
-
+  db.query(q, [values], (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Erro ao cadastrar usuário" });
+    } else {
+      return res.status(200).json("Usuário cadastrado com sucesso");
+    }
+  });
+};
