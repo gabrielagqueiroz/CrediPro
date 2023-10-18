@@ -1,7 +1,12 @@
 import React from "react";
 
 export default function Form() {
-  const [data, setData] = React.useState({});
+  const [data, setData] = React.useState({
+    name: '',       
+    telefone: '',
+    category: '',
+    obs: '',
+  });
 
   const fields = (e) => {
     const {name, value} = e.target;
@@ -14,19 +19,26 @@ export default function Form() {
   const cadastrar = async (e) => {
     e.preventDefault();
 
-    const response = await fetch('http://localhost:8000/cadastro', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    try {
+      const response = await fetch('http://localhost:8000/cadastro', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    console.log(data)
+      if (response.ok) {
+        M.toast({ html: 'Cadastrado!' });
+      } else {
+        M.toast({ html: 'Erro ao cadastrar.' });
+      }
+    } catch (error) {
+      console.error('Erro na solicitação', error);
+    }
+  
 
   }
-
-  
 
   return (
     <div className="container">
@@ -34,9 +46,10 @@ export default function Form() {
         <div className="row">
           <div className="input-field col s12">
             <input
-              value={data.nome}
+              value={data.name}
               onChange={fields}
-              id="nome"
+              name="name"
+              id="name"
               type="text"
               className="validate"
             />
@@ -45,9 +58,10 @@ export default function Form() {
 
           <div className="input-field col s6">
             <input
-              value={data.tel}
+              value={data.telefone}
               onChange={fields}
-              id="tel"
+              name="telefone"
+              id="telefone"
               type="tel"
               className="validate"
             />
@@ -57,6 +71,7 @@ export default function Form() {
             <input
               value={data.category}
               onChange={fields}
+              name="category"
               id="category"
               type="text"
               className="validate"
@@ -69,6 +84,7 @@ export default function Form() {
             <input
               value={data.obs}
               onChange={fields}
+              name="obs"
               id="obs"
               type="text"
               className="validate"
@@ -80,6 +96,7 @@ export default function Form() {
               Finalizar
               <i className="material-icons right">done</i>
             </button>
+           
           </div>
         </div>
       </form>

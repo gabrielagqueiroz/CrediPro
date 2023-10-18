@@ -10,15 +10,13 @@ export const getUsers = (_, res) => {
   });
 };
 
+
+
 export const postUsers = (req, res) => {
-
-    const body = req.body
-
-    console.log(body)
 
   const q = "INSERT INTO tb_user(nome, category, telefone, obs ) VALUES(?)";
 
-  const values = [req.body.name, req.body.category, req.body.tel, req.body.obs];
+  const values = [req.body.name, req.body.category, req.body.telefone, req.body.obs];
 
   db.query(q, [values], (err) => {
     if (err) {
