@@ -26,6 +26,9 @@ export default function Navbar() {
               <Link to="/cadastro">Cadastrar</Link>
             </li>
             <li>
+              <Link to="/clientes">Clientes</Link>
+            </li>
+            <li>
               <Link to="/vendas">Vendas</Link>
             </li>
             <li>
@@ -39,6 +42,9 @@ export default function Navbar() {
             </li>
             <li>
               <Link to="/cadastro">Cadastrar</Link>
+            </li>
+            <li>
+              <Link to="/clientes">Clientes</Link>
             </li>
             <li>
               <Link to="/vendas">Vendas</Link>

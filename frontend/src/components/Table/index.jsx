@@ -1,5 +1,7 @@
 import React from 'react';
 import './index.css'
+import Excluir from '../BtnExcluir';
+import Vendas from '../BtnVendas';
 
 export default function Table(props) {
   return (
@@ -37,9 +39,9 @@ export default function Table(props) {
                       <th className="center-align">{user.category}</th>
                       <th className="center-align">{user.telefone}</th>
                       <th className="center-align">{user.telefone}</th>
-                      <th className="center-align">{user.telefone}</th>
-                      <th>Editar</th>
-                      <th>Excluir</th>
+                      <th className="center-align">{user.obs}</th>
+                      <th className="center-align"><Vendas/></th>
+                      <th className="center-align"><Excluir/></th>
                     </tr>
                   );
                 })}

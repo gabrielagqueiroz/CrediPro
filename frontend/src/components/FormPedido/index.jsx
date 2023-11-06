@@ -1,26 +1,18 @@
 import React from "react";
 
-export default function Form() {
-  const [data, setData] = React.useState({
-    name: '',       
-    telefone: '',
-    category: '',
-    obs: '',
-  });
+export default function FormPedido() {
+  const [data, setData] = React.useState([]);
 
   const fields = (e) => {
-    const {name, value} = e.target;
-
-    setData({...data, [name]: value});
-    
+    e.preventDefault();
+    console.log(data)
   };
-
 
   const cadastrar = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8000/cadastro', {
+      const response = await fetch("http://localhost:8000/cadastro/pedido", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,93 +21,22 @@ export default function Form() {
       });
 
       if (response.ok) {
-        M.toast({ html: 'Cadastrado!' });
+        M.toast({ html: "Cadastrado!" });
+        
       } else {
-        M.toast({ html: 'Erro ao cadastrar.' });
+        M.toast({ html: "Erro ao cadastrar." });
       }
     } catch (error) {
-      console.error('Erro na solicitação', error);
+      console.error("Erro na solicitação", error);
     }
-  
-
-  }
-
+  };
+ 
   return (
     <div className="container">
-      <form onSubmit={cadastrar}>
-        <div className="row">
-          <div className="input-field col s12">
-            <input
-              value={data.name}
-              onChange={fields}
-              name="name"
-              id="name"
-              type="text"
-              className="validate"
-            />
-            <label htmlFor="name">Nome do Cliente</label>
-          </div>
-
-          <div className="input-field col s6">
-            <input
-              value={data.telefone}
-              onChange={fields}
-              name="telefone"
-              id="telefone"
-              type="tel"
-              className="validate"
-            />
-            <label htmlFor="tel">Telefone</label>
-          </div>
-          <div className="input-field col s6">
-            <input
-              value={data.category}
-              onChange={fields}
-              name="category"
-              id="category"
-              type="text"
-              className="validate"
-            />
-            <label htmlFor="category">Categoria</label>
-          </div>  
-        </div> 
-        <div className="row">
-          <div className="input-field col s7">
-            <input
-              value={data.obs}
-              onChange={fields}
-              name="obs"
-              id="obs"
-              type="text"
-              className="validate"
-            />
-            <label htmlFor="obs">Observações:</label>
-          </div>
-          <div className="input-field col s5">
-            <button className="btn waves-effect waves-light" type="submit">
-              Finalizar
-              <i className="material-icons right">done</i>
-            </button>
-           
-          </div>
-        </div>
-      </form>
-    </div>
-  );
-}
-
-
-{/* <select multiple>
-              <option value="São Carlos">São Carlos</option>
-              <option value="Cliente">Cliente</option>
-              <option value="Outro">Outro</option>
-            </select>
-            <label>Tipo Cliente</label>
-          </div>
-        </div>
+      <form >
         <div className="row">
           <div className="input-field col s4">
-            <select multiple>
+            <select multiple onChange={(item) => setData(item)}>
               <optgroup label="Pratinho">
                 <option value="Pratinho 10">Pratinho 10</option>
                 <option value="Pratinho 15">Pratinho 15</option>
@@ -132,8 +53,9 @@ export default function Form() {
             </select>
             <label>Comidas</label>
           </div>
+
           <div className="input-field col s4">
-            <select multiple>
+            <select multiple onChange={(item) => setData(item)}>
               <optgroup label="Garrafinha">
                 <option value="Coquinha">Coquinha</option>
                 <option value="São Gerardo">São Gerardo</option>
@@ -165,7 +87,7 @@ export default function Form() {
             <label>Bebidas</label>
           </div>
           <div className="input-field col s4">
-            <select multiple>
+            <select multiple onChange={(item) => setData(item)}>
               <optgroup label="Chocolates">
                 <option value="Bolo">Bolo</option>
                 <option value="Barra">Barra</option>
@@ -180,4 +102,21 @@ export default function Form() {
             </select>
             <label>Doces</label>
           </div>
-        </div> */}
+            <input
+              name="obs"
+              id="obs"
+              type="text"
+              className="validate"
+            />
+            <label htmlFor="obs">Observações:</label>
+            
+            <button onClick={fields} className="btn waves-effect waves-light" type="submit">
+              Finalizar
+              <i className="material-icons right">done</i>
+            </button>
+        
+        </div>
+      </form>
+    </div>
+  );
+}
