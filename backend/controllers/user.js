@@ -14,7 +14,7 @@ export const getUsers = (_, res) => {
 
 export const postUsers = (req, res) => {
 
-  const query_user = "INSERT INTO tb_user(nome, category, telefone, obs ) VALUES(?)";
+  const query_user = "INSERT INTO tb_user (nome, category, telefone, obs ) VALUES(?)";
   const values = [req.body.name, req.body.category, req.body.telefone, req.body.obs];
 
   db.query(query_user, [values], (err) => {

@@ -40,7 +40,7 @@ export default function Table(props) {
                       <th className="center-align">{user.telefone}</th>
                       <th className="center-align">{user.telefone}</th>
                       <th className="center-align">{user.obs}</th>
-                      <th className="center-align"><Vendas/></th>
+                      <th className="center-align"><Vendas userId={user.id}/></th>
                       <th className="center-align"><Excluir/></th>
                     </tr>
                   );
