@@ -25,8 +25,32 @@ export const postUsers = (req, res) => {
       return res.status(200).json("Usuário cadastrado com sucesso");
     }
   });
+};
 
 
+export const postOrder = (req, res) => {
+
+  const {userId} = req.params;
   
+  const query_order = "INSERT INTO tb_orders (user_id) VALUES(?)";
+  const values_order = [userId];
 
+  const query_items = "INSERT INTO tb_items () VALUES(?)"
+  const values_items = [req.body.value]
+
+  db.query(query_order, values_order, (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Erro ao cadastrar pedido" });
+    } else {
+      db.query(query_items, values_items, (errItems) => {
+        if (errItems) {
+          console.error(errItems);
+          return res.status(500).json({ error: "Erro ao cadastrar itens" });
+        } else {
+          return res.status(200).json("Pedido cadastrado com sucesso");
+        }
+      });
+    }
+  });
 };
