@@ -1,5 +1,9 @@
+import FormCadastroProduto from "../../components/FormCadastroProduto";
+
 export default function Produtos() {
-    return(
-        <div>Produtos</div>
-    )
+  return (
+    <div>
+      <FormCadastroProduto />
+    </div>
+  );
 }

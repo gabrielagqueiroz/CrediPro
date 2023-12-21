@@ -1,26 +1,23 @@
 import React from "react";
 
-export default function FormCadastro() {
+export default function FormCadastroProduto() {
   const [data, setData] = React.useState({
-    name: '',       
-    telefone: '',
-    category: '',
-    obs: '',
+    name: "",
+    value: "",
+    categoryId: ""
   });
 
   const fields = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
 
-    setData({...data, [name]: value});
-    
+    setData({ ...data, [name]: value });
   };
 
   const limparCampos = () => {
     setData({
-      name: '',
-      telefone: '',
-      category: '',
-      obs: '',
+      name: "",
+      value: "",
+      categoryId: ""
     });
   };
 
@@ -28,7 +25,7 @@ export default function FormCadastro() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8000/cadastro', {
+      const response = await fetch("http://localhost:8000/produtos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,19 +34,15 @@ export default function FormCadastro() {
       });
 
       if (response.ok) {
-        M.toast({ html: 'Cadastrado!' });
+        M.toast({ html: "Cadastrado!" });
         limparCampos();
-
       } else {
-        M.toast({ html: 'Erro ao cadastrar.' });
+        M.toast({ html: "Erro ao cadastrar." });
       }
-
     } catch (error) {
-      console.error('Erro na solicitação', error);
+      console.error("Erro na solicitação", error);
     }
-  
-
-  }
+  };
 
   return (
     <div className="container">
@@ -64,51 +57,37 @@ export default function FormCadastro() {
               type="text"
               className="validate"
             />
-            <label htmlFor="name">Nome do Cliente</label>
+            <label htmlFor="name">Nome</label>
           </div>
 
           <div className="input-field col s6">
             <input
-              value={data.telefone}
+              value={data.value}
               onChange={fields}
-              name="telefone"
-              id="telefone"
+              name="value"
+              id="value"
               type="text"
               className="validate"
             />
-            <label htmlFor="tel">Telefone</label>
+            <label htmlFor="value">Valor</label>
           </div>
           <div className="input-field col s6">
             <input
-              value={data.category}
+              value={data.categoryId}
               onChange={fields}
-              name="category"
-              id="category"
+              name="categoryId"
+              id="categoryId"
               type="text"
               className="validate"
             />
-            <label htmlFor="category">Categoria</label>
-          </div>  
-        </div> 
-        <div className="row">
-          <div className="input-field col s7">
-            <input
-              value={data.obs}
-              onChange={fields}
-              name="obs"
-              id="obs"
-              type="text"
-              className="validate"
-            />
-            <label htmlFor="obs">Observações:</label>
+            <label htmlFor="categoryId">Categoria</label>
           </div>
-          <div className="input-field col s5">
+        </div>
+        <div className="row">
             <button className="btn waves-effect waves-light" type="submit">
               Finalizar
               <i className="material-icons right">done</i>
             </button>
-           
-          </div>
         </div>
       </form>
     </div>

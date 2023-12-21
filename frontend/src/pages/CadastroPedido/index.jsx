@@ -5,7 +5,6 @@ import FormPedido from '../../components/FormPedido';
 
 export default function CadastroPedido() {
   const { userId } = useParams();
-
   return (
     <div>
       <FormPedido userId={userId}/>

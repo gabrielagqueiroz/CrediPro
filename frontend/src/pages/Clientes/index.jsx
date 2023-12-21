@@ -10,7 +10,6 @@ export default function Clientes(props) {
         .then(res => res.json())
         .then(data => {
             setData(data)
-            console.log(data)
         });
     }, [data])   // TRATAR POSSIVEIS ERROS COM O TRY CATCH
   

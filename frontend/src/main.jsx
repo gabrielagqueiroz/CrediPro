@@ -6,12 +6,13 @@ import {
 } from "react-router-dom";
 
 import App from './App.jsx'
-import CadastroUser from './pages/CadastroUser/index';
 import Clientes from './pages/Clientes/index.jsx';
+import CadastroCliente from './pages/CadastroCliente/index.jsx';
 import Vendas from './pages/Vendas/index.jsx';
 import Produtos from './pages/Produtos/index.jsx';
 import Dashboard from './pages/Dashboard/index.jsx';
 import CadastroPedido from './pages/CadastroPedido/index';
+
 
 const router = createBrowserRouter([
   {
@@ -24,14 +25,14 @@ const router = createBrowserRouter([
       },
       {
         path: "/cadastro",
-        element: <CadastroUser/>
+        element: <CadastroCliente/>
       },
       {
         path: "/clientes",
         element: <Clientes/>,
       },
       {
-        path:"/cadastro/pedido/:userI",
+        path:"/cadastro/pedido/:userId",
         element: <CadastroPedido/>
       },
       {

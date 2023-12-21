@@ -35,10 +35,10 @@ export default function Table(props) {
                   return (
                     <tr key={index}>
                       <th className="center-align" scope="row">{user.id}</th>
-                      <th className="center-align">{user.nome}</th>
+                      <th className="center-align">{user.name}</th>
                       <th className="center-align">{user.category}</th>
-                      <th className="center-align">{user.telefone}</th>
-                      <th className="center-align">{user.telefone}</th>
+                      <th className="center-align">{user.tel}</th>
+                      <th className="center-align">{user.tel}</th>
                       <th className="center-align">{user.obs}</th>
                       <th className="center-align"><Vendas userId={user.id}/></th>
                       <th className="center-align"><Excluir/></th>

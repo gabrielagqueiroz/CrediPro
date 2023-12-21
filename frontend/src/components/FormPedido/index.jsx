@@ -1,23 +1,11 @@
 import React from "react";
 
 export default function FormPedido({ userId }) {
-  const [data, setData] = React.useState([]);
-  const [quantidade, setQuantidade] = React.useState({
-      pratinho10: 0,
-      pratinho15: 0,
-      pratinhoL: 0,
-      lasanha: 0,
-      torta: 0,
-      arrozdeforno: 0,
-      salgado: 0,
-      pastel: 0,
-      sanduicheNatural: 0
-  });
-
+  const [item, setItem] = React.useState([]);
 
   const alterarQuantidade = (button, item) => {
-    setQuantidade((prevQuantidades) => {
-      const novasQuantidades = {...prevQuantidades};
+    setItem((prevQuantidades) => {
+      const novasQuantidades = { ...prevQuantidades };
 
       if (button === "+" && novasQuantidades[item] < 20) {
         novasQuantidades[item] += 1;
@@ -28,13 +16,30 @@ export default function FormPedido({ userId }) {
       return novasQuantidades;
     });
 
-    console.log(quantidade)
+    console.log(item);
   };
-
 
   const pegarDados = (e) => {
-    setData(e.target.value)
+   /*  setData(e.target.value); */
+   console.log(e.target.id, e.target.value);
   };
+
+
+  const produto = async (e) => {
+    try {
+      const response = await fetch(`http://localhost:8000/cadastro/pedido/${userId}`);
+      if(!response.ok) {
+        M.toast({ html: "Erro na solicitação da API" });
+      }
+
+      const data = await response.json();
+      setItem(data);
+
+    } catch (error) {
+      console.error('Erro ao buscar dados da API:', error);
+    }
+  };
+
 
   const cadastrar = async (e) => {
     e.preventDefault();
@@ -47,7 +52,7 @@ export default function FormPedido({ userId }) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(data, quantidade),
+          body: JSON.stringify(item),
         }
       );
 
@@ -61,8 +66,6 @@ export default function FormPedido({ userId }) {
     }
   };
 
-  
-
   return (
     <div className="container">
       <form onSubmit={cadastrar}>
@@ -75,94 +78,190 @@ export default function FormPedido({ userId }) {
               </div>
               <div className="collapsible-body">
                 <div className="row">
-                  <div className="input-field col s4">
+                  <div className="col s4">
                     PRATINHOS
                     <p>
                       <label>
-                        <input onChange={pegarDados} value="1" type="checkbox" />
+                        <input
+                          onChange={pegarDados}
+                          value="1"
+                          type="checkbox"
+                        />
                         <span>Pratinho - 10</span>
                       </label>
-                      <button onClick={() => alterarQuantidade("-", "pratinho10")}>-</button>
-                      <span>{quantidade.pratinho10}</span>
-                      <button onClick={() => alterarQuantidade("+", "pratinho10")}>+</button>
+                      <button
+                        onClick={() => alterarQuantidade("-", "1")}
+                      >
+                        -
+                      </button>
+                      <span>{item.pratinho10}</span>
+                      <button
+                        onClick={() => alterarQuantidade("+", "1")}
+                      >
+                        +
+                      </button>
                     </p>
                     <p>
                       <label>
-                        <input onChange={pegarDados} value="2" type="checkbox" />
+                        <input
+                          onChange={pegarDados}
+                          value="2"
+                          type="checkbox"
+                        />
                         <span>Pratinho - 15</span>
                       </label>
-                      <button onClick={() => alterarQuantidade("-", "pratinho15")}>-</button>
-                      <span>{quantidade.pratinho15}</span>
-                      <button onClick={() => alterarQuantidade("+", "pratinho15")}>+</button>
+                      <button
+                        onClick={() => alterarQuantidade("-", "pratinho15")}
+                      >
+                        -
+                      </button>
+                      <span>{item.pratinho15}</span>
+                      <button
+                        onClick={() => alterarQuantidade("+", "pratinho15")}
+                      >
+                        +
+                      </button>
                     </p>
                     <p>
                       <label>
-                        <input onChange={pegarDados} value="3" type="checkbox" />
+                        <input
+                          onChange={pegarDados}
+                          value="3"
+                          type="checkbox"
+                        />
                         <span>Pratinho com Lasanha</span>
                       </label>
-                      <button onClick={() => alterarQuantidade("-", "pratinhoL")}>-</button>
-                      <span>{quantidade.pratinhoL}</span>
-                      <button onClick={() => alterarQuantidade("+", "pratinhoL")}>+</button>
+                      <button
+                        onClick={() => alterarQuantidade("-", "pratinhoL")}
+                      >
+                        -
+                      </button>
+                      <span>{item.pratinhoL}</span>
+                      <button
+                        onClick={() => alterarQuantidade("+", "pratinhoL")}
+                      >
+                        +
+                      </button>
                     </p>
                   </div>
-                  <div className="input-field col s4">
+                  <div className="col s4">
                     TRAVESSA
                     <p>
                       <label>
-                        <input onChange={pegarDados} value="4" type="checkbox" />
+                        <input
+                          onChange={pegarDados}
+                          value="4"
+                          type="checkbox"
+                        />
                         <span>Lasanha</span>
                       </label>
-                      <button onClick={() => alterarQuantidade("-", "lasanha")}>-</button>
-                      <span>{quantidade.lasanha}</span>
-                      <button onClick={() => alterarQuantidade("+", "lasanha")}>+</button>
+                      <button onClick={() => alterarQuantidade("-", "lasanha")}>
+                        -
+                      </button>
+                      <span>{item.lasanha}</span>
+                      <button onClick={() => alterarQuantidade("+", "lasanha")}>
+                        +
+                      </button>
                     </p>
                     <p>
                       <label>
-                        <input onChange={pegarDados} value="5" type="checkbox" />
+                        <input
+                          onChange={pegarDados}
+                          value="5"
+                          type="checkbox"
+                        />
                         <span>Torta</span>
                       </label>
-                      <button onClick={() => alterarQuantidade("-", "torta")}>-</button>
-                      <span>{quantidade.torta}</span>
-                      <button onClick={() => alterarQuantidade("+", "torta")}>+</button>
+                      <button onClick={() => alterarQuantidade("-", "torta")}>
+                        -
+                      </button>
+                      <span>{item.torta}</span>
+                      <button onClick={() => alterarQuantidade("+", "torta")}>
+                        +
+                      </button>
                     </p>
                     <p>
                       <label>
-                        <input onChange={pegarDados} value="6" type="checkbox" />
+                        <input
+                          onChange={pegarDados}
+                          value="6"
+                          type="checkbox"
+                        />
                         <span>Arroz de Forno</span>
                       </label>
-                      <button onClick={() => alterarQuantidade("-", "arrozdeforno")}>-</button>
-                      <span>{quantidade.arrozdeforno}</span>
-                      <button onClick={() => alterarQuantidade("+", "arrozdeforno")}>+</button>
+                      <button
+                        onClick={() => alterarQuantidade("-", "arrozdeforno")}
+                      >
+                        -
+                      </button>
+                      <span>{item.arrozdeforno}</span>
+                      <button
+                        onClick={() => alterarQuantidade("+", "arrozdeforno")}
+                      >
+                        +
+                      </button>
                     </p>
                   </div>
-                  <div className="input-field col s4">
+                  <div className="col s4">
                     SALGADOS
                     <p>
                       <label>
-                        <input onChange={pegarDados} value="7" type="checkbox" />
+                        <input
+                          onChange={pegarDados}
+                          value="7"
+                          type="checkbox"
+                        />
                         <span>Salgado</span>
                       </label>
-                      <button onClick={() => alterarQuantidade("-", "salgado")}>-</button>
-                      <span>{quantidade.salgado}</span>
-                      <button onClick={() => alterarQuantidade("+", "salgado")}>+</button>
+                      <button onClick={() => alterarQuantidade("-", "salgado")}>
+                        -
+                      </button>
+                      <span>{item.salgado}</span>
+                      <button onClick={() => alterarQuantidade("+", "salgado")}>
+                        +
+                      </button>
                     </p>
                     <p>
                       <label>
-                        <input onChange={pegarDados} value="8" type="checkbox" />
+                        <input
+                          onChange={pegarDados}
+                          value="8"
+                          type="checkbox"
+                        />
                         <span>Pastel</span>
                       </label>
-                      <button onClick={() => alterarQuantidade("-", "pastel")}>-</button>
-                      <span>{quantidade.pastel}</span>
-                      <button onClick={() => alterarQuantidade("+", "pastel")}>+</button>
+                      <button onClick={() => alterarQuantidade("-", "pastel")}>
+                        -
+                      </button>
+                      <span>{item.pastel}</span>
+                      <button onClick={() => alterarQuantidade("+", "pastel")}>
+                        +
+                      </button>
                     </p>
                     <p>
                       <label>
-                        <input onChange={pegarDados} value="9" type="checkbox" />
+                        <input
+                          onChange={pegarDados}
+                          value="9"
+                          type="checkbox"
+                        />
                         <span>Sanduiche Natural</span>
                       </label>
-                      <button onClick={() => alterarQuantidade("-", "sanduicheNatural")}>-</button>
-                      <span>{quantidade.sanduicheNatural}</span>
-                      <button onClick={() => alterarQuantidade("+", "sanduicheNatural")}>+</button>
+                      <button
+                        onClick={() =>
+                          alterarQuantidade("-", "sanduicheNatural")
+                        }
+                      >
+                        -
+                      </button>
+                      <span>{item.sanduicheNatural}</span>
+                      <button
+                        onClick={() =>
+                          alterarQuantidade("+", "sanduicheNatural")
+                        }
+                      >
+                        +
+                      </button>
                     </p>
                   </div>
                 </div>
@@ -175,7 +274,7 @@ export default function FormPedido({ userId }) {
               </div>
               <div className="collapsible-body">
                 <div className="row">
-                  <div className="input-field col s4">
+                  <div className="col s4">
                     PET
                     <p>
                       <label>
@@ -220,7 +319,7 @@ export default function FormPedido({ userId }) {
                       </label>
                     </p>
                   </div>
-                  <div className="input-field col s4">
+                  <div className="col s4">
                     LATA
                     <p>
                       <label>
@@ -259,7 +358,7 @@ export default function FormPedido({ userId }) {
                       </label>
                     </p>
                   </div>
-                  <div className="input-field col s4">
+                  <div className="col s4">
                     SUCO
                     <p>
                       <label>
@@ -331,15 +430,93 @@ export default function FormPedido({ userId }) {
                 DOCES
               </div>
               <div className="collapsible-body">
-                <p>
-                  <label>
-                    <input type="checkbox" />
-                    <span>Red</span>
-                  </label>
-                </p>
+                <div className="row">
+                  <div className="col s4">
+                  CHOCOLATES
+                    <p>
+                      <label>
+                        <input type="checkbox" />
+                        <span>Bolo</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input type="checkbox" />
+                        <span>Barra de Chocolate</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input type="checkbox" />
+                        <span>Kit-Kat</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input type="checkbox" />
+                        <span>Snickers</span>
+                      </label>
+                    </p>
+                  </div>
+                  <div className="col s4">
+                  BISCOITO
+                    <p>
+                      <label>
+                        <input type="checkbox" />
+                        <span>RECHEADO - 2.5</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input type="checkbox" />
+                        <span>RECHEADO - 4</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input type="checkbox" />
+                        <span>RECHEADO - 6</span>
+                      </label>
+                    </p>
+                  </div>
+                  <div className="col s4">
+                    BOMBONS
+                    <p>
+                      <label>
+                        <input type="checkbox" />
+                        <span>Bombom - 3</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input type="checkbox" />
+                        <span>Bombom - 4</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input type="checkbox" />
+                        <span>Pirulito</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input type="checkbox" />
+                        <span>Doce - 1</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input type="checkbox" />
+                        <span>Doce - 0.6</span>
+                      </label>
+                    </p>
+                  </div>
+                </div>
               </div>
             </li>
           </ul>
+          <button onClick={produto}>Finalizar Pedido</button>
         </div>
         <div>
           <span>detalhes do pedido</span>
@@ -349,85 +526,3 @@ export default function FormPedido({ userId }) {
   );
 }
 
-{
-  /* <div className="input-field col s4">
-<select multiple onChange={selectData}>
-  <optgroup label="Pratinho">
-    <option value="1">Pratinho 10</option>
-    <option value="2">Pratinho 15</option>
-  </optgroup>
-  <optgroup label="Travessa">
-    <option value="3">Lasanha</option>
-    <option value="4">Arroz de forno</option>
-  </optgroup>
-  <optgroup label="Salgado">
-    <option value="5">Coxinha</option>
-    <option value="6">Pastel</option>
-    <option value="7">Torta</option>
-  </optgroup>
-</select>
-<label>Comidas</label>
-</div>
-
-<div className="input-field col s4">
-<select multiple onChange={selectData}>
-  <optgroup label="Garrafinha">
-    <option value="8">Coquinha</option>
-    <option value="9">São Gerardo</option>
-    <option value="10">Guaraná</option>
-    <option value="11">Grappet/Uva</option>
-    <option value="12">Fanta/Laranja</option>
-    <option value="13">Soda/Limão</option>
-    <option value="14">Pepsi</option>
-  </optgroup>
-  <optgroup label="Lata">
-    <option value="15">Coca Cola</option>
-    <option value="16">Guaraná</option>
-    <option value="17">Fanta/Laranja</option>
-    <option value="18">Fanta/Uva</option>
-    <option value="19">Sprite/Limão</option>
-    <option value="20">Pepsi</option>
-  </optgroup>
-  <optgroup label="Suco">
-    <option value="21">Goiaba</option>
-    <option value="22">Tamarindo</option>
-    <option value="23">Acerola</option>
-    <option value="24">Cajá</option>
-    <option value="25">Cajú</option>
-    <option value="26">Limão</option>
-    <option value="27">Manga</option>
-    <option value="28">Maracujá</option>
-  </optgroup>
-</select>
-<label>Bebidas</label>
-</div>
-<div className="input-field col s4">
-<select multiple onChange={selectData}>
-  <optgroup label="Chocolates">
-    <option value="29">Bolo</option>
-    <option value="30">Barra</option>
-    <option value="31">Kit-Kat</option>
-    <option value="32">Snickers</option>
-  </optgroup>
-  <optgroup label="Bombom">
-    <option value="33">Bombom 3</option>
-    <option value="34">Bombom 4</option>
-    <option value="35">Pirulito</option>
-  </optgroup>
-</select>
-<label>Doces</label>
-</div>
-
-<label htmlFor="obs">Observações:</label>
-<input
-  name="obs"
-  id="obs"
-  type="text"
-  className="validate"
-/>
-
-<button className="btn waves-effect waves-light" type="submit">
-  Finalizar
-  <i className="material-icons right">done</i>
-</button> */
-}
