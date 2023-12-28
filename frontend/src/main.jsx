@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         element: <Dashboard/>
       },
       {
-        path: "/cadastro",
+        path: "/cadastro/cliente",
         element: <CadastroCliente/>
       },
       {
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
         element: <Vendas/>
       },
       {
-        path: "/produtos",
+        path: "/cadastro/produto",
         element: <Produtos/>
       },
     ]

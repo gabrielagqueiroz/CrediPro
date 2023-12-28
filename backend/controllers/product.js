@@ -1,8 +1,9 @@
 import { db } from "../db.js";
 
-/* export const getProducts = (_, res) => {
+export const getProducts = (req, res) => {
+  console.log("Corpo da Requisição:", req.body);
   const query_products = "SELECT * FROM tb_products";
-
+  
   db.query(query_products, (err, data) => {
     if (err) {
       console.error("Erro ao executar a consulta ao banco de dados:", err);
@@ -12,7 +13,8 @@ import { db } from "../db.js";
     console.log("Dados da tabela de produtos:", data);
     return res.status(200).json(data);
   });
-}; */
+};
+
 
 export const postProducts = (req, res) => {
   const query_products =

@@ -1,13 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import FormPedido from '../../components/FormPedido';
+import FormCadastroPedido from '../../components/FormCadastroPedido';
 
 
 export default function CadastroPedido() {
   const { userId } = useParams();
   return (
     <div>
-      <FormPedido userId={userId}/>
+      <FormCadastroPedido userId={userId}/>
     </div>
   );
 }

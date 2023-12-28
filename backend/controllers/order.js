@@ -1,6 +1,6 @@
 import { db } from "../db.js";
 
-export const postOrder = (req, res) => {
+ export const postOrder = (req, res) => {
     const { userId } = req.params;
   
     const query_order = "INSERT INTO tb_orders (user_id) VALUES(?)";
@@ -15,16 +15,16 @@ export const postOrder = (req, res) => {
       const orderId = result.insertId;
       
       const query_Items =
-        "INSERT INTO tb_items (order_id, product_id, quantidade, total, desconto) VALUES (?)";
-     /*  const values_Items = req.body.map((item) => [
+        "INSERT INTO tb_orderItems (order_id, product_id, quantidade, total, desconto) VALUES (?)";
+       const values_Items = req.body.map((item) => [
         orderId,
         item.product_id,
         item.quantidade,
         item.total,
         item.desconto,
-      ]); */
+      ]);
   
-      /* console.log(req.body) */
+      console.log(req.body)
       
       db.query(query_Items, [values_Items], (errItems) => {
         if (errItems) {

@@ -25,7 +25,7 @@ export default function FormCadastroProduto() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/produtos", {
+      const response = await fetch("http://localhost:8000/cadastro/produto", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

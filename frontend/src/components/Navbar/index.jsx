@@ -23,7 +23,7 @@ export default function Navbar() {
               <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
-              <Link to="/cadastro">Cadastrar</Link>
+              <Link to="/cadastro/cliente">Cadastrar</Link>
             </li>
             <li>
               <Link to="/clientes">Clientes</Link>
@@ -32,7 +32,7 @@ export default function Navbar() {
               <Link to="/vendas">Vendas</Link>
             </li>
             <li>
-              <Link to="/produtos">Produtos</Link>
+              <Link to="/cadastro/produto">Produtos</Link>
             </li>
           </ul>
 
@@ -41,7 +41,7 @@ export default function Navbar() {
               <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
-              <Link to="/cadastro">Cadastrar</Link>
+              <Link to="/cadastro/cliente">Cadastrar</Link>
             </li>
             <li>
               <Link to="/clientes">Clientes</Link>
@@ -50,7 +50,7 @@ export default function Navbar() {
               <Link to="/vendas">Vendas</Link>
             </li>
             <li>
-              <Link to="/produtos">Produtos</Link>
+              <Link to="/cadastro/produto">Produtos</Link>
             </li>
           </ul>
           <a href="#" data-target="slide-out" className="sidenav-trigger">
