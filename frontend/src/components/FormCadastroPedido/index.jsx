@@ -2,33 +2,8 @@ import React from "react";
 
 export default function FormPedido({ userId }) {
   const [item, setItem] = React.useState([]);
-  
-  const alterarQuantidade = (button, itemId) => {
-    setItem((prevItems) => {
-      return prevItems.map((item) => {
-        if (item.id === itemId) {
-          const novaQuantidade =
-            button === "+" ? (item.qtd < 20 ? item.qtd + 1 : item.qtd) : (item.qtd > 0 ? item.qtd - 1 : item.qtd);
 
-          return { ...item, qtd: novaQuantidade };
-        }
-        return item;
-      });
-    });
-  };
-
-  const pegarDados = (e) => {
-    const itemId = e.target.id;
-    const itemQtd = e.target.checked ? 1 : 0;
-
-    setItem((prevItems) => {
-      return prevItems.map((item) =>
-        item.id === itemId ? { ...item, qtd: itemQtd } : item
-      );
-    });
-  };
-
-
+  React.useEffect(() => {
   const produto = async (e) => {
     try {
       const response = await fetch(`http://localhost:8000/cadastro/pedido/${userId}`);
@@ -37,13 +12,48 @@ export default function FormPedido({ userId }) {
       }
 
       const data = await response.json();
-      setItem(data);
-      console.log("pedidos",data)
+      const itemsQtd = data.map((item) => ({...item, qtd:0}));
+      setItem(itemsQtd);
+      console.log("pedidos", itemsQtd);
 
     } catch (error) {
       console.error('Erro ao buscar dados da API:', error);
     }
   };
+
+  produto()
+}, [userId])
+
+  const alterarQtd = (button, itemId) => {
+    console.log(`alterarQtd chamada com botao: ${button}, itemId: ${itemId}`);
+    setItem((prevItems) => {
+      return prevItems.map((prevItem) => {
+        if (prevItem.id === itemId) {
+          const novaQtd =
+            button === "+" ? (prevItem.qtd < 20 ? prevItem.qtd + 1 : prevItem.qtd) : (prevItem.qtd > 0 ? prevItem.qtd - 1 : prevItem.qtd);
+
+            console.log(`Nova quantidade para item ${prevItem.id}: ${novaQtd}`);
+
+          return { ...prevItem, qtd: novaQtd };
+        }
+        return prevItem;
+      });
+    });
+  };
+
+  const pegarDados = (e) => {
+  const itemId = e.target.id;
+  const itemQtd = e.target.checked ? 1 : 0;
+
+  setItem((prevItems) => {
+    return prevItems.map((prevItem) =>
+      prevItem.id === itemId ? { ...prevItem, qtd: itemQtd } : prevItem
+    );
+  });
+};
+
+
+  
 
 
   const cadastrar = async (e) => {
@@ -86,28 +96,28 @@ export default function FormPedido({ userId }) {
                 <div className="row">
                   <div className="col s4">
                     PRATINHOS
-                    {item.map((item) => {
-                      if(item.category_id === 1) {
+                    {item.map((currentItem) => {
+                      if(currentItem.category_id === 1) {
                         return (
-                          <p key={item.id}>
+                          <p key={currentItem.id}>
                       <label>
                         <input
                           onChange={pegarDados}
-                          name= {item.name}
-                          id= {item.id}
-                          value={item.qtd}
+                          name= {currentItem.name}
+                          id= {currentItem.id}
+                          value={currentItem.qtd}
                           type="checkbox"
                         />
-                        <span>{item.name}</span>
+                        <span>{currentItem.name}</span>
                       </label>
                       <button
-                        onClick={() => alterarQuantidade("-", `${item.id}`)}
+                        onClick={() => alterarQtd("-", `${currentItem.id}`)}
                       >
                         -
                       </button>
-                      <span>{item.qtd}</span>
+                      <span>{currentItem.qtd}</span>
                       <button
-                        onClick={() => alterarQuantidade("+", `${item.id}`)}
+                        onClick={() => alterarQtd("+", `${currentItem.id}`)}
                       >
                         +
                       </button>
@@ -118,28 +128,28 @@ export default function FormPedido({ userId }) {
                   </div>
                   <div className="col s4">
                     TRAVESSA
-                    {item.map((item) => {
-                      if (item.category_id === 2) {
+                    {item.map((currentItem) => {
+                      if (currentItem.category_id === 2) {
                         return (
-                          <p key={item.id}>
+                          <p key={currentItem.id}>
                       <label>
                         <input
                           onChange={pegarDados}
-                          name= {item.name}
-                          id= {item.id}
-                          value={item.qtd}
+                          name= {currentItem.name}
+                          id= {currentItem.id}
+                          value={currentItem.qtd}
                           type="checkbox"
                         />
-                        <span>{item.name}</span>
+                        <span>{currentItem.name}</span>
                       </label>
                       <button
-                        onClick={() => alterarQuantidade("-", `${item.id}`)}
+                        onClick={() => alterarQtd("-", `${currentItem.id}`)}
                       >
                         -
                       </button>
-                      <span>{item.qtd}</span>
+                      <span>{currentItem.qtd}</span>
                       <button
-                        onClick={() => alterarQuantidade("+", `${item.id}`)}
+                        onClick={() => alterarQtd("+", `${currentItem.id}`)}
                       >
                         +
                       </button>
@@ -150,28 +160,28 @@ export default function FormPedido({ userId }) {
                   </div>
                   <div className="col s4">
                     SALGADO
-                    {item.map((item) => {
-                      if(item.category_id === 3) {
+                    {item.map((currentItem) => {
+                      if(currentItem.category_id === 3) {
                         return (
-                          <p key={item.id}>
+                          <p key={currentItem.id}>
                       <label>
                         <input
                           onChange={pegarDados}
-                          name= {item.name}
-                          id= {item.id}
-                          value={item.qtd}
+                          name= {currentItem.name}
+                          id= {currentItem.id}
+                          value={currentItem.qtd}
                           type="checkbox"
                         />
-                        <span>{item.name}</span>
+                        <span>{currentItem.name}</span>
                       </label>
                       <button
-                        onClick={() => alterarQuantidade("-", `${item.id}`)}
+                        onClick={() => alterarQtd("-", `${currentItem.id}`)}
                       >
                         -
                       </button>
-                      <span>{item.qtd}</span>
+                      <span>{currentItem.qtd}</span>
                       <button
-                        onClick={() => alterarQuantidade("+", `${item.id}`)}
+                        onClick={() => alterarQtd("+", `${currentItem.id}`)}
                       >
                         +
                       </button>
@@ -192,28 +202,28 @@ export default function FormPedido({ userId }) {
                 <div className="row">
                   <div className="col s4">
                     PET
-                    {item.map((item) => {
-                      if(item.category_id === 4) {
+                    {item.map((currentItem) => {
+                      if(currentItem.category_id === 4) {
                         return (
-                          <p key={item.id}>
+                          <p key={currentItem.id}>
                       <label>
                         <input
                           onChange={pegarDados}
-                          name= {item.name}
-                          id= {item.id}
-                          value={item.qtd}
+                          name= {currentItem.name}
+                          id= {currentItem.id}
+                          value={currentItem.qtd}
                           type="checkbox"
                         />
-                        <span>{item.name}</span>
+                        <span>{currentItem.name}</span>
                       </label>
                       <button
-                        onClick={() => alterarQuantidade("-", `${item.id}`)}
+                        onClick={() => alterarQtd("-", `${currentItem.id}`)}
                       >
                         -
                       </button>
-                      <span>{item.qtd}</span>
+                      <span>{currentItem.qtd}</span>
                       <button
-                        onClick={() => alterarQuantidade("+", `${item.id}`)}
+                        onClick={() => alterarQtd("+", `${currentItem.id}`)}
                       >
                         +
                       </button>
@@ -239,13 +249,13 @@ export default function FormPedido({ userId }) {
                         <span>{item.name}</span>
                       </label>
                       <button
-                        onClick={() => alterarQuantidade("-", `${item.id}`)}
+                        onClick={() => alterarQtd("-", `${item.id}`)}
                       >
                         -
                       </button>
                       <span>{item.qtd}</span>
                       <button
-                        onClick={() => alterarQuantidade("+", `${item.id}`)}
+                        onClick={() => alterarQtd("+", `${item.id}`)}
                       >
                         +
                       </button>
@@ -271,13 +281,13 @@ export default function FormPedido({ userId }) {
                         <span>{item.name}</span>
                       </label>
                       <button
-                        onClick={() => alterarQuantidade("-", `${item.id}`)}
+                        onClick={() => alterarQtd("-", `${item.id}`)}
                       >
                         -
                       </button>
                       <span>{item.qtd}</span>
                       <button
-                        onClick={() => alterarQuantidade("+", `${item.id}`)}
+                        onClick={() => alterarQtd("+", `${item.id}`)}
                       >
                         +
                       </button>
@@ -313,13 +323,13 @@ export default function FormPedido({ userId }) {
                         <span>{item.name}</span>
                       </label>
                       <button
-                        onClick={() => alterarQuantidade("-", `${item.id}`)}
+                        onClick={() => alterarQtd("-", `${item.id}`)}
                       >
                         -
                       </button>
                       <span>{item.qtd}</span>
                       <button
-                        onClick={() => alterarQuantidade("+", `${item.id}`)}
+                        onClick={() => alterarQtd("+", `${item.id}`)}
                       >
                         +
                       </button>
@@ -345,13 +355,13 @@ export default function FormPedido({ userId }) {
                         <span>{item.name}</span>
                       </label>
                       <button
-                        onClick={() => alterarQuantidade("-", `${item.id}`)}
+                        onClick={() => alterarQtd("-", `${item.id}`)}
                       >
                         -
                       </button>
                       <span>{item.qtd}</span>
                       <button
-                        onClick={() => alterarQuantidade("+", `${item.id}`)}
+                        onClick={() => alterarQtd("+", `${item.id}`)}
                       >
                         +
                       </button>
@@ -377,13 +387,13 @@ export default function FormPedido({ userId }) {
                         <span>{item.name}</span>
                       </label>
                       <button
-                        onClick={() => alterarQuantidade("-", `${item.id}`)}
+                        onClick={() => alterarQtd("-", `${item.id}`)}
                       >
                         -
                       </button>
                       <span>{item.qtd}</span>
                       <button
-                        onClick={() => alterarQuantidade("+", `${item.id}`)}
+                        onClick={() => alterarQtd("+", `${item.id}`)}
                       >
                         +
                       </button>
@@ -396,7 +406,7 @@ export default function FormPedido({ userId }) {
               </div>
             </li>
           </ul>
-          <button onClick={produto}>Finalizar Pedido</button>
+          <button>Finalizar Pedido</button>
         </div>
         <div>
           <span>detalhes do pedido</span>
